@@ -1,4 +1,5 @@
 name: Build MelonLoader
+run-name: test
 
 on:
   push:
