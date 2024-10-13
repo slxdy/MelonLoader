@@ -15,22 +15,35 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup dotnet
         uses: actions/setup-dotnet@v4
+
       - name: Build Melonloader Core Debug
-        shell: cmd
         run: dotnet build -c Debug -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}" # Platform is actually irrelevant for core, it's compiled as AnyCPU either way
-      - name: Build MelonLoader Core Release
-        shell: cmd
-        run: dotnet build -c Release -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
+
       - name: Upload Debug Core Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MLCoreDebug
           path: Output/Debug/MelonLoader/
+
+      - name: Build MelonLoader Core Release
+        run: dotnet build -c Release -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
+
       - name: Upload Release Core Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MLCoreRelease
           path: Output/Release/MelonLoader/
+
+      - name: Pack NuGet Package
+        run: dotnet pack -c Release ${{ github.event_name != 'workflow_dispatch' && format('-p:Version="{0}-ci.{1}" -p:AssemblyVersion="{0}.{1}"', vars.DEVVERSION, github.run_number) || format('-p:Version="{0}"', vars.DEVVERSION) }}
+
+      - name: Upload NuGet Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MelonLoaderNuGetPackage
+          path: Output/Release/MelonLoader/LavaGang.MelonLoader.${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('-ci.{0}', github.run_number) || '' }}.nupkg
+      
+
   build_rust_windows:
     runs-on: windows-latest
     steps:
