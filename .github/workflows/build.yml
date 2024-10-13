@@ -1,5 +1,5 @@
 name: Build MelonLoader
-run-name: test
+run-name: ${{ vars.DEVVERSION }}
 
 on:
   push:
