@@ -20,7 +20,7 @@ jobs:
             6.0.x
       - name: Build Melonloader Core
         shell: cmd
-        run: dotnet -c Debug -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}" # Platform is actually irrelevant for core, it's compiled as AnyCPU either way
+        run: dotnet build -c Debug -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}" # Platform is actually irrelevant for core, it's compiled as AnyCPU either way
       - name: Upload core artifact
         uses: actions/upload-artifact@v4
         with:
@@ -37,7 +37,7 @@ jobs:
             6.0.x
       - name: Build Melonloader Core
         shell: cmd
-        run: dotnet -c Release -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
+        run: dotnet build -c Release -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
       - name: Upload core artifact
         uses: actions/upload-artifact@v4
         with:
