@@ -15,7 +15,7 @@
 
 ---
 
-## GENERAL INFORMATION:
+## GENERAL INFORMATION:a
 
 - Debug Mode is for Development Purposes.  
 Use it to help Develop and Debug MelonLoader, Plugins, and Mods.
