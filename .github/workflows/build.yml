@@ -9,36 +9,23 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_core_debug:
+  build_core:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup dotnet
         uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: |
-            6.0.x
       - name: Build Melonloader Core
         shell: cmd
-        run: dotnet build -c Debug -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}" # Platform is actually irrelevant for core, it's compiled as AnyCPU either way
-      - name: Upload core artifact
+        run: |
+          dotnet build -c Debug -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}" # Platform is actually irrelevant for core, it's compiled as AnyCPU either way
+          dotnet build -c Release -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
+      - name: Upload Debug Core Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MLCoreDebug
           path: Output/Debug/MelonLoader/
-  build_core_release:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: |
-            6.0.x
-      - name: Build Melonloader Core
-        shell: cmd
-        run: dotnet build -c Release -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
-      - name: Upload core artifact
+      - name: Upload Release Core Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MLCoreRelease
@@ -159,7 +146,7 @@ jobs:
           path: target/x86_64-unknown-linux-gnu/debug/libBootstrap.so
   finalize_x64_debug_zip_windows:
     runs-on: ubuntu-22.04
-    needs: [build_core_debug, build_rust_windows]
+    needs: [build_core, build_rust_windows]
     steps:
       - uses: actions/checkout@v4
       - name: Download core artifact
@@ -204,7 +191,7 @@ jobs:
           path: ./Output/Debug/x64/*
   finalize_x86_debug_zip_windows:
     runs-on: ubuntu-22.04
-    needs: [build_core_debug, build_rust_windows]
+    needs: [build_core, build_rust_windows]
     steps:
       - uses: actions/checkout@v4
       - name: Download core artifact
@@ -249,7 +236,7 @@ jobs:
           path: ./Output/Debug/x86/*
   finalize_x64_release_zip_windows:
     runs-on: ubuntu-22.04
-    needs: [build_core_release, build_rust_windows]
+    needs: [build_core, build_rust_windows]
     steps:
       - uses: actions/checkout@v4
       - name: Download core artifact
@@ -294,7 +281,7 @@ jobs:
           path: ./Output/Release/x64/*
   finalize_x86_release_zip_windows:
     runs-on: ubuntu-22.04
-    needs: [build_core_release, build_rust_windows]
+    needs: [build_core, build_rust_windows]
     steps:
       - uses: actions/checkout@v4
       - name: Download core artifact
@@ -339,7 +326,7 @@ jobs:
           path: ./Output/Release/x86/*
   finalize_x64_debug_zip_linux:
     runs-on: ubuntu-22.04
-    needs: [build_core_debug, build_rust_linux]
+    needs: [build_core, build_rust_linux]
     steps:
       - uses: actions/checkout@v4
       - name: Download core artifact
@@ -381,7 +368,7 @@ jobs:
           path: ./Output/Debug/x64/*
   finalize_x64_release_zip_linux:
     runs-on: ubuntu-22.04
-    needs: [build_core_release, build_rust_linux]
+    needs: [build_core, build_rust_linux]
     steps:
       - uses: actions/checkout@v4
       - name: Download core artifact
