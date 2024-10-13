@@ -15,11 +15,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup dotnet
         uses: actions/setup-dotnet@v4
-      - name: Build Melonloader Core
+      - name: Build Melonloader Core Debug
         shell: cmd
-        run: |
-          dotnet build -c Debug -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}" # Platform is actually irrelevant for core, it's compiled as AnyCPU either way
-          dotnet build -c Release -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
+        run: dotnet build -c Debug -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}" # Platform is actually irrelevant for core, it's compiled as AnyCPU either way
+      - name: Build MelonLoader Core Release
+        shell: cmd
+        run: dotnet build -c Release -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
       - name: Upload Debug Core Artifact
         uses: actions/upload-artifact@v4
         with:
