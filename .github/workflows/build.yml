@@ -18,7 +18,6 @@ jobs:
         with:
           dotnet-version: |
             6.0.x
-            3.5.x
       - name: Build Melonloader Core
         shell: cmd
         run: dotnet -c Debug -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}" # Platform is actually irrelevant for core, it's compiled as AnyCPU either way
@@ -36,7 +35,6 @@ jobs:
         with:
           dotnet-version: |
             6.0.x
-            3.5.x
       - name: Build Melonloader Core
         shell: cmd
         run: dotnet -c Release -p:Platform="Windows - x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
