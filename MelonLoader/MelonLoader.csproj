@@ -3,12 +3,13 @@
 		<TargetFrameworks>net35;net6</TargetFrameworks>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-		<OutputPath>..\Output\$(Configuration)\MelonLoader\</OutputPath>
+		<OutputPath>$(SolutionDir)Output\$(Configuration)\MelonLoader\</OutputPath>
 		<DocumentationFile>$(OutputPath)$(TargetFramework)\MelonLoader.xml</DocumentationFile>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<DebugType>embedded</DebugType>
 
+		<IsPackable>true</IsPackable>
 		<PackageId>LavaGang.MelonLoader</PackageId>
 		<PackageTags>modding unity</PackageTags>
 		<RepositoryUrl>https://github.com/LavaGang/MelonLoader</RepositoryUrl>
