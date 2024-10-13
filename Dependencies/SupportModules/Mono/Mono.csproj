@@ -9,11 +9,6 @@
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
-		<Compile Remove="Libs\**" />
-		<EmbeddedResource Remove="Libs\**" />
-		<None Remove="Libs\**" />
-	</ItemGroup>
-	<ItemGroup>
 		<Reference Include="UnityEngine" HintPath="Libs\UnityEngine.dll" Private="False" />
 	</ItemGroup>
 	<ItemGroup>
