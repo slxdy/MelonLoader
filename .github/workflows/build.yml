@@ -181,7 +181,7 @@ jobs:
           xcopy BaseLibs\net6 Output\Debug\x64\MelonLoader\net6\ /E /H /Y
           echo.
           echo Copying Dobby x64...
-          xcopy BaseLibs\dobby_x64.dll Output\Debug\x64\dobby.dll*
+          xcopy BaseLibs\dobby_x64.dll Output\Debug\x64\MelonLoader\Dependencies\dobby.dll*
           echo.
           echo Copying documentation files...
           copy NOTICE.txt Output\Debug\x64
@@ -190,6 +190,8 @@ jobs:
           copy LICENSE.md Output\Debug\x64\MelonLoader\Documentation\
           copy NOTICE.txt Output\Debug\x64\MelonLoader\Documentation\
           copy README.md Output\Debug\x64\MelonLoader\Documentation\
+          del Output\Debug\x64\MelonLoader\net6\MelonStartScreen.dll
+          del Output\Debug\x64\MelonLoader\net6\MelonStartScreen.deps.json
       - uses: actions/upload-artifact@v4
         name: Upload Zip | Windows - x64
         with:
@@ -225,7 +227,7 @@ jobs:
           xcopy BaseLibs\net6 Output\Debug\x86\MelonLoader\net6\ /E /H /Y
           echo.
           echo Copying Dobby x86...
-          xcopy BaseLibs\dobby_x86.dll Output\Debug\x86\dobby.dll*
+          xcopy BaseLibs\dobby_x86.dll Output\Debug\x86\MelonLoader\Dependencies\dobby.dll*
           echo.
           echo Copying documentation files...
           copy NOTICE.txt Output\Debug\x86
@@ -234,6 +236,8 @@ jobs:
           copy LICENSE.md Output\Debug\x86\MelonLoader\Documentation\
           copy NOTICE.txt Output\Debug\x86\MelonLoader\Documentation\
           copy README.md Output\Debug\x86\MelonLoader\Documentation\
+          del Output\Debug\x86\MelonLoader\net6\MelonStartScreen.dll
+          del Output\Debug\x86\MelonLoader\net6\MelonStartScreen.deps.json
       - uses: actions/upload-artifact@v4
         name: Upload Zip | Windows - x86
         with:
@@ -269,7 +273,7 @@ jobs:
           xcopy BaseLibs\net6 Output\Release\x64\MelonLoader\net6\ /E /H /Y
           echo.
           echo Copying Dobby x64...
-          xcopy BaseLibs\dobby_x64.dll Output\Release\x64\dobby.dll*
+          xcopy BaseLibs\dobby_x64.dll Output\Release\x64\MelonLoader\Dependencies\dobby.dll*
           echo. 
           echo Copying documentation files...
           copy NOTICE.txt Output\Release\x64
@@ -278,6 +282,8 @@ jobs:
           copy LICENSE.md Output\Release\x64\MelonLoader\Documentation\
           copy NOTICE.txt Output\Release\x64\MelonLoader\Documentation\
           copy README.md Output\Release\x64\MelonLoader\Documentation\
+          del Output\Release\x64\MelonLoader\net6\MelonStartScreen.dll
+          del Output\Release\x64\MelonLoader\net6\MelonStartScreen.deps.json
       - uses: actions/upload-artifact@v4
         name: Upload Zip | Windows - x64
         with:
@@ -313,7 +319,7 @@ jobs:
           xcopy BaseLibs\net6 Output\Release\x86\MelonLoader\net6\ /E /H /Y
           echo.
           echo Copying Dobby x86...
-          xcopy BaseLibs\dobby_x86.dll Output\Release\x86\dobby.dll*
+          xcopy BaseLibs\dobby_x86.dll Output\Release\x86\MelonLoader\Dependencies\dobby.dll*
           echo.
           echo Copying documentation files...
           copy NOTICE.txt Output\Release\x86
@@ -322,6 +328,8 @@ jobs:
           copy LICENSE.md Output\Release\x86\MelonLoader\Documentation\
           copy NOTICE.txt Output\Release\x86\MelonLoader\Documentation\
           copy README.md Output\Release\x86\MelonLoader\Documentation\
+          del Output\Release\x86\MelonLoader\net6\MelonStartScreen.dll
+          del Output\Release\x86\MelonLoader\net6\MelonStartScreen.deps.json
       - uses: actions/upload-artifact@v4
         name: Upload Zip | Windows - x86
         with:
@@ -363,6 +371,8 @@ jobs:
           copy LICENSE.md Output\Debug\x64\MelonLoader\Documentation\
           copy NOTICE.txt Output\Debug\x64\MelonLoader\Documentation\
           copy README.md Output\Debug\x64\MelonLoader\Documentation\
+          del Output\Debug\x64\MelonLoader\net6\MelonStartScreen.dll
+          del Output\Debug\x64\MelonLoader\net6\MelonStartScreen.deps.json
       - uses: actions/upload-artifact@v4
         name: Upload Zip | Linux - x64
         with:
@@ -404,6 +414,8 @@ jobs:
           copy LICENSE.md Output\Release\x64\MelonLoader\Documentation\
           copy NOTICE.txt Output\Release\x64\MelonLoader\Documentation\
           copy README.md Output\Release\x64\MelonLoader\Documentation\
+          del Output\Release\x64\MelonLoader\net6\MelonStartScreen.dll
+          del Output\Release\x64\MelonLoader\net6\MelonStartScreen.deps.json
       - uses: actions/upload-artifact@v4
         name: Upload Zip | Linux - x64
         with:
