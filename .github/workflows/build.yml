@@ -188,7 +188,7 @@ jobs:
         run: |
           echo Copying Managed Libs...
           mkdir -p Output/Debug/x64/MelonLoader/Dependencies/Mono
-          cp -r Output/Debug/Managed Output/Debug/x64/MelonLoader/
+          cp -r Output/Debug/Managed/ Output/Debug/x64/MelonLoader/
           cp -r BaseLibs/Mono Output/Debug/x64/MelonLoader/Dependencies/
           cp -r BaseLibs/net35 Output/Debug/x64/MelonLoader/
           cp -r BaseLibs/net6 Output/Debug/x64/MelonLoader/
@@ -203,8 +203,8 @@ jobs:
           cp LICENSE.md Output/Debug/x64/MelonLoader/Documentation/
           cp NOTICE.txt Output/Debug/x64/MelonLoader/Documentation/
           cp README.md Output/Debug/x64/MelonLoader/Documentation/
-          rm -f Output/Debug/x64/MelonLoader/net6/MelonStartScreen.dll
-          rm -f Output/Debug/x64/MelonLoader/net6/MelonStartScreen.deps.json
+          rm Output/Debug/x64/MelonLoader/net6/MelonStartScreen.dll
+          rm Output/Debug/x64/MelonLoader/net6/MelonStartScreen.deps.json
       - uses: actions/upload-artifact@v4
         name: Upload Zip | Windows - Debug - x64
         with:
@@ -230,7 +230,7 @@ jobs:
         run: |
           echo Copying Managed Libs...
           mkdir -p Output/Release/x64/MelonLoader/Dependencies/Mono
-          cp -r Output/Release/Managed Output/Release/x64/MelonLoader/
+          cp -r Output/Release/Managed/ Output/Release/x64/MelonLoader/
           cp -r BaseLibs/Mono Output/Release/x64/MelonLoader/Dependencies/
           cp -r BaseLibs/net35 Output/Release/x64/MelonLoader/
           cp -r BaseLibs/net6 Output/Release/x64/MelonLoader/
@@ -267,7 +267,7 @@ jobs:
         run: |
           echo Copying Managed Libs...
           mkdir -p Output/Debug/x86/MelonLoader/Dependencies/Mono
-          cp -r Output/Debug/Managed Output/Debug/x86/MelonLoader/
+          cp -r Output/Debug/Managed/ Output/Debug/x86/MelonLoader/
           cp -r BaseLibs/Mono Output/Debug/x86/MelonLoader/Dependencies/
           cp -r BaseLibs/net35 Output/Debug/x86/MelonLoader/
           cp -r BaseLibs/net6 Output/Debug/x86/MelonLoader/
@@ -304,7 +304,7 @@ jobs:
         run: |
           echo Copying Managed Libs...
           mkdir -p Output/Release/x86/MelonLoader/Dependencies/Mono
-          cp -r Output/Release/Managed Output/Release/x86/MelonLoader/
+          cp -r Output/Release/Managed/ Output/Release/x86/MelonLoader/
           cp -r BaseLibs/Mono Output/Release/x86/MelonLoader/Dependencies/
           cp -r BaseLibs/net35 Output/Release/x86/MelonLoader/
           cp -r BaseLibs/net6 Output/Release/x86/MelonLoader/
