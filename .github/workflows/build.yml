@@ -405,6 +405,7 @@ jobs:
           path: ./Output/Release/x64/*
       
   cleanup_artifacts:
+    name: Cleanup Artifacts
     runs-on: ubuntu-22.04
     needs: [finalize_windows, finalize_linux]
     steps:
