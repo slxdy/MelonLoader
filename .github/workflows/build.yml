@@ -204,7 +204,7 @@ jobs:
           cp NOTICE.txt Output/Debug/x64/MelonLoader/Documentation/
           cp README.md Output/Debug/x64/MelonLoader/Documentation/
           rm -f Output/Debug/x64/MelonLoader/net6/MelonStartScreen.dll
-          rm Output/Debug/x64/MelonLoader/net6/MelonStartScreen.deps.json
+          rm -f Output/Debug/x64/MelonLoader/net6/MelonStartScreen.deps.json
       - uses: actions/upload-artifact@v4
         name: Upload Zip | Windows - Debug - x64
         with:
