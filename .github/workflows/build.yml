@@ -23,7 +23,7 @@ jobs:
         run: dotnet restore
 
       - name: Build Debug for win-x64
-        run: dotnet build --no-restore -c Debug -:RID="win-x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
+        run: dotnet build --no-restore -c Debug -p:RID="win-x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
 
       - name: Upload Debug for win-x64
         uses: actions/upload-artifact@v4
@@ -32,7 +32,7 @@ jobs:
           path: Output/Debug/win-x64
 
       - name: Build Release for win-x64
-        run: dotnet build --no-restore -c Release -:RID="win-x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
+        run: dotnet build --no-restore -c Release -p:RID="win-x64" -p:Version="${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('.{0}', github.run_number) || '' }}"
 
       - name: Upload Release for win-x64
         uses: actions/upload-artifact@v4
