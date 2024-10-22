@@ -1,5 +1,4 @@
 name: Build MelonLoader
-run-name: ${{ vars.DEVVERSION }}${{ github.event_name != 'workflow_dispatch' && format('-ci.{0}', github.run_number) || '' }} | ${{ github.event_name != 'workflow_dispatch' && (github.event.head_commit.message || format('`[PR]` {0}', github.event.pull_request.title)) || 'Manual Build' }}
 
 on:
   push:
@@ -9,9 +8,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_core:
+  get_project_version:
+    name: Get Project Version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version
+        id: get_version
+        run: |
+          VERSION=$(cat VERSION.txt)
+          echo "::set-output name=version::$VERSION"
+        
+      - name: Set Run Name
+        run: 'echo "::set-output name=run_name::abc"'
+
+  build_windows:
     name: Build Windows Binaries
     runs-on: windows-latest
+    needs: get_project_version
     steps:
       - uses: actions/checkout@v4
       - name: Setup dotnet
