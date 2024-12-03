@@ -23,10 +23,8 @@ namespace MelonLoader
 
         internal static int Initialize()
         {
-            var runtimeFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-            var runtimeDirInfo = new DirectoryInfo(runtimeFolder);
-            MelonEnvironment.GameRootDirectory = Path.GetDirectoryName(MelonEnvironment.GameExecutablePath);
-            MelonEnvironment.MelonLoaderDirectory = runtimeDirInfo.Parent!.FullName;
+            // The config should be set before running anything else due to static constructors depending on it
+            BootstrapInterop.Library.GetLoaderConfig(LoaderConfig.Current);
 
             MelonLaunchOptions.Load();
 
@@ -52,7 +50,7 @@ namespace MelonLoader
 
 #if NET6_0_OR_GREATER
 
-            if (MelonLaunchOptions.Core.UserWantsDebugger && MelonEnvironment.IsDotnetRuntime)
+            if (LoaderConfig.Current.Loader.LaunchDebugger && MelonEnvironment.IsDotnetRuntime)
             {
                 MelonLogger.Msg("[Init] User requested debugger, attempting to launch now...");
                 Debugger.Launch();
@@ -156,7 +154,7 @@ namespace MelonLoader
         
         internal static string GetVersionString()
         {
-            var lemon = MelonLaunchOptions.Console.Mode == MelonLaunchOptions.Console.DisplayMode.LEMON;
+            var lemon = LoaderConfig.Current.Loader.Theme == LoaderConfig.CoreConfig.LoaderTheme.Lemon;
             var versionStr = $"{(lemon ? "Lemon" : "Melon")}Loader " +
                              $"v{BuildInfo.Version} " +
                              $"{(Is_ALPHA_PreRelease ? "ALPHA Pre-Release" : "Open-Beta")}";
@@ -204,7 +202,7 @@ namespace MelonLoader
 
             Thread.Sleep(200);
 
-            if (MelonLaunchOptions.Core.QuitFix)
+            if (LoaderConfig.Current.Loader.ForceQuit)
                 Process.GetCurrentProcess().Kill();
         }
 

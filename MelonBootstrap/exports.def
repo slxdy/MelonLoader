@@ -9,6 +9,7 @@ EXPORTS
    MonoInstallHooks
    MonoGetDomainPtr
    MonoGetRuntimeHandle
+   GetLoaderConfig
    GetFileVersionInfoSizeA=ImplGetFileVersionInfoSizeA
    GetFileVersionInfoA=ImplGetFileVersionInfoA
    GetFileVersionInfoByHandle=ImplGetFileVersionInfoByHandle

@@ -128,7 +128,7 @@ namespace MelonLoader
         {
             namesection ??= MelonUtils.GetMelonFromStackTrace()?.Info?.Name;
 
-            PassLogError(txt ?? "null", namesection);
+            PassLogError(txt ?? "null", namesection, false);
             RunErrorCallbacks(namesection, txt ?? "null");
         }
 
@@ -136,10 +136,11 @@ namespace MelonLoader
         {
             RunErrorCallbacks(namesection, txt ?? "null");
 
-            PassLogError(new string('=', 50), namesection);
+            PassLogError(new string('=', 50), namesection, false);
             foreach (var line in txt.Split('\n'))
-                PassLogError(line, namesection);
-            PassLogError(new string('=', 50), namesection);
+                PassLogError(line, namesection, false);
+
+            PassLogError(new string('=', 50), namesection, false);
         }
 
         internal static void RunMsgCallbacks(Color namesection_color, Color txt_color, string namesection, string txt)
@@ -250,10 +251,7 @@ namespace MelonLoader
 
         internal static void Warning(string namesection, string txt)
         {
-            if (MelonLaunchOptions.Console.HideWarnings)
-                return;
-
-            PassLogMsg(Color.Yellow, txt, Color.Yellow, namesection);
+            PassLogError(txt, namesection, true);
         }
 
         internal static void ThrowInternalFailure(string txt) => Assertion.ThrowInternalFailure(txt);
@@ -293,13 +291,13 @@ namespace MelonLoader
             }
         }
 
-        internal static unsafe void PassLogError(string msg, string section)
+        internal static unsafe void PassLogError(string msg, string section, bool warning)
         {
             if (section == null)
             {
                 fixed (char* pMsg = msg)
                 {
-                    BootstrapInterop.Library.LogError(pMsg, msg.Length, null, 0);
+                    BootstrapInterop.Library.LogError(pMsg, msg.Length, null, 0, warning);
                 }
 
                 return;
@@ -309,7 +307,7 @@ namespace MelonLoader
             {
                 fixed (char* pSection = section)
                 {
-                    BootstrapInterop.Library.LogError(pMsg, msg.Length, pSection, section.Length);
+                    BootstrapInterop.Library.LogError(pMsg, msg.Length, pSection, section.Length, warning);
                 }
             }
         }

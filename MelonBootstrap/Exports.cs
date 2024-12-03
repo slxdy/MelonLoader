@@ -54,16 +54,23 @@ internal static class Exports
     }
 
     [UnmanagedCallersOnly(EntryPoint = "LogError")]
-    public static unsafe void LogError(char* msg, int msgLength, char* section, int sectionLength)
+    public static unsafe void LogError(char* msg, int msgLength, char* section, int sectionLength, bool warning)
     {
         var mMsg = new ReadOnlySpan<char>(msg, msgLength);
         if (section == null)
         {
-            MelonLogger.LogError(mMsg);
+            if (warning)
+                MelonLogger.LogWarning(mMsg);
+            else
+                MelonLogger.LogError(mMsg);
+
             return;
         }
 
-        MelonLogger.LogError(mMsg, new(section, sectionLength));
+        if (warning)
+            MelonLogger.LogWarning(mMsg, new(section, sectionLength));
+        else
+            MelonLogger.LogError(mMsg, new(section, sectionLength));
     }
 
     [UnmanagedCallersOnly(EntryPoint = "LogMelonInfo")]
@@ -88,5 +95,11 @@ internal static class Exports
     public static nint MonoGetRuntimeHandle()
     {
         return MonoHandler.Mono.Handle;
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "GetLoaderConfig")]
+    public static void GetLoaderConfig(nint pConfig)
+    {
+        Marshal.StructureToPtr(LoaderConfig.Current, pConfig, false);
     }
 }

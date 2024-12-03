@@ -1,5 +1,4 @@
 ﻿using MelonLoader.Bootstrap.Logging;
-using MelonLoader.Bootstrap.Utils;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -14,13 +13,10 @@ internal static partial class ConsoleHandler
     private static nint outputHandle;
 #endif
 
-    public static bool Hidden { get; private set; } = ArgParser.IsDefined("melonloader.hideconsole");
+    public static bool IsOpen { get; private set; }
 
     public static void OpenConsole(bool onTop, string? title)
     {
-        if (Hidden)
-            return;
-
 #if WINDOWS
         // Do not create a new window if a window already exists or the output is being redirected
         var consoleWindow = GetConsoleWindow();
@@ -30,10 +26,7 @@ internal static partial class ConsoleHandler
             AllocConsole();
             consoleWindow = GetConsoleWindow();
             if (consoleWindow == 0)
-            {
-                Hidden = true;
                 return;
-            }
 
             if (onTop)
                 SetWindowPos(consoleWindow, -1, 0, 0, 0, 0, 0x0001 | 0x0002);
@@ -55,6 +48,8 @@ internal static partial class ConsoleHandler
 
         outputHandle = GetStdHandle(StdOutputHandle);
 #endif
+
+        IsOpen = true;
     }
 
     public static void NullHandles()
