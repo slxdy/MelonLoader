@@ -25,4 +25,4 @@ internal delegate nint CastManagedAssemblyPtrFn(nint ptr);
 internal delegate void ActionFn();
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-internal delegate void GetLoaderConfigFn(LoaderConfig config);
+internal delegate void GetLoaderConfigFn(ref LoaderConfig config);
